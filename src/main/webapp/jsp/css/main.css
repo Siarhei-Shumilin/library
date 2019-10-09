@@ -1,0 +1,229 @@
+body {
+    /*background-color: silver;*/
+    background-image: url("https://cs7.pikabu.ru/post_img/big/2017/12/12/4/1513052705177170307.jpg");
+    margin: 0;
+}
+
+.main {
+    position: absolute;
+    /*left: 10%;*/
+    left: 20%;
+    width: 75%;
+
+}
+.order {
+    position: absolute;
+    left: 12%;
+    width: 75%;
+}
+.tableOfGenre {
+    color:white;
+    font-size:30px;
+    margin:0;
+    padding: 5px;
+    background: black;
+
+    right: 82%;
+    left: 2%;
+    position: absolute;
+}
+
+.addBook {
+    color:white;
+    margin:30px;
+    padding: 10px;
+    right: 100%;
+    position: absolute;
+    background-color: black;
+    border: 1px solid white;
+}
+.searchBook {
+    color:white;
+    margin:30px;
+    padding: 10px;
+    right: 100%;
+    top: 55%;
+    position: absolute;
+    background-color: black;
+    border: 1px solid white;
+}
+th {
+    height: 50px;
+    background-color: #1E90FF;
+    color: white;
+}
+table, td, th {
+    /*border: 1px solid black;*/
+    border: 1px solid white;
+    text-align: center;
+    color: white;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: black;
+    /*opacity:0.8*/
+}
+a{
+    color: white;
+    font-size:20px;
+}
+
+.edit{
+    height:250px;
+    width:400px;
+    background:black;
+    border:1px double black;
+    border-radius:10px;
+    /*opacity:0.8;*/
+    position:absolute;
+    right:40%;
+    top:35%;
+    padding:10px;
+}
+
+
+
+.edit input[type="text"], input[type="password"] {
+    width:100%;
+    margin-bottom:10px;
+    border:none;
+    border-radius:20px;
+    height: 20px;
+    border-bottom:1px solid #fff;
+    color:black;
+    padding:12px;
+}
+
+.edit input[type="submit"]{
+    display: inline-block;
+    width:100%;
+    margin-bottom:10px;
+    border:none;
+    height:25px;
+    border-radius:20px;
+    color:#fff;
+    background:#1E90FF;
+}
+
+.edit input[type="submit"]:hover{
+    background-color:red;
+}
+
+.main-submit {
+    background-color: #1E90FF;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-decoration: none;
+    margin-top: 6px;
+}
+
+input[type="submit"]:hover {
+    background-color: red;
+}
+
+ul {
+    background: black;
+    padding: 20px;
+    list-style-type: none;
+}
+
+li {
+    color: white;
+    font-size: 20px;
+}
+
+/*.main h2 {*/
+.order h2 {
+    margin: 0;
+    text-align: center;
+    color: seashell;
+    background-color: black;
+    opacity: 0.8;
+    padding: 0px;
+    font-size: 30px;
+}
+
+p {
+    margin: 0;
+    text-align: center;
+    color: white;
+    padding: 0px;
+    font-size: 20px;
+}
+
+.center {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+.login{
+    height:200px;
+    width:290px;
+    background:black;
+    border:1px double black;
+    border-radius:10px;
+    /*opacity:0.8;*/
+    position:absolute;
+    right:40%;
+    top:35%;
+    padding:10px;
+}
+
+.login input[type="text"], input[type="password"] {
+    width:100%;
+    margin-bottom:10px;
+    border:none;
+    border-radius:20px;
+    height: 20px;
+    border-bottom:1px solid #fff;
+    color:black;
+    padding:12px;
+}
+
+.login input[type="submit"]{
+    display: inline-block;
+    width:100%;
+    margin-bottom:10px;
+    border:none;
+    height:25px;
+    border-radius:20px;
+    color:#fff;
+    background:#1E90FF;
+}
+
+.login input[type="submit"]:hover{
+    background-color:red;
+}
+
+.login h2{
+    margin:0;
+    text-align: center;
+    color:white;
+    padding:0 0 20px;
+    font-size:20px;
+}
+
+.col-65 {
+    display: inline-block;
+    width: 100%;
+    margin-top: 6px;
+}
+.col-75 {
+    width: 100%;
+    margin-top: 6px;
+    display: grid;
+    height:50px;
+}
+
+::-webkit-input-placeholder {
+    text-align:center;
+}
