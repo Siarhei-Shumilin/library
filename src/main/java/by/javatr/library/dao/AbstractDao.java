@@ -2,7 +2,6 @@ package by.javatr.library.dao;
 
 import by.javatr.library.builder.Builder;
 import by.javatr.library.exception.DaoException;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractDao<T, K> implements Dao<T, K> {
-    private final static Logger LOGGER = Logger.getLogger(AbstractDao.class);
 
     private Connection connection;
 
@@ -53,7 +51,6 @@ public abstract class AbstractDao<T, K> implements Dao<T, K> {
         }
     }
 
-//    protected PreparedStatement executeUpdate(String query, Object... parameters) throws DaoException {
     protected void executeUpdate(String query, Object... parameters) throws DaoException {
         PreparedStatement preparedStatement = null;
         try{
@@ -63,7 +60,6 @@ public abstract class AbstractDao<T, K> implements Dao<T, K> {
         } catch (SQLException e) {
             throw new DaoException(e.getMessage(), e);
         }
-//        return preparedStatement;
     }
 
     public Connection getConnection() {
