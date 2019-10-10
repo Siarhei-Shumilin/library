@@ -51,40 +51,40 @@ public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao
 
     @Override
     public void save(Order order) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(ADD_ORDER);
-            preparedStatement.setInt(1, order.getUserId());
-            preparedStatement.setInt(2, order.getBookId());
-            preparedStatement.setBoolean(3, true);
-            preparedStatement.setString(4, order.getDate());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+//        try {
+//            PreparedStatement preparedStatement = executeUpdate(ADD_ORDER);
+//            preparedStatement.setInt(1, order.getUserId());
+//            preparedStatement.setInt(2, order.getBookId());
+//            preparedStatement.setBoolean(3, true);
+//            preparedStatement.setString(4, order.getDate());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage(), e);
+//            throw new DaoException(e.getMessage(), e);
+//        }
     }
 
     public void saveBookInIssued(Book book) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(ADD_BOOK_IN_ISSUED);
-            preparedStatement.setInt(1, book.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+//        try {
+//            PreparedStatement preparedStatement = executeUpdate(ADD_BOOK_IN_ISSUED);
+//            preparedStatement.setInt(1, book.getId());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage(), e);
+//            throw new DaoException(e.getMessage(), e);
+//        }
     }
 
     @Override
     public void updateOrderById(int id) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(UPDATE_ORDER_BY_ID);
-            preparedStatement.setBoolean(1, false);
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        }
+//        try {
+//            PreparedStatement preparedStatement = executeUpdate(UPDATE_ORDER_BY_ID);
+//            preparedStatement.setBoolean(1, false);
+//            preparedStatement.setInt(2, id);
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new DaoException(e.getMessage(), e);
+//        }
     }
 
 

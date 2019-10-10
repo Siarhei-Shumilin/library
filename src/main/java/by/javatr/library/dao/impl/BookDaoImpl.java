@@ -8,8 +8,6 @@ import by.javatr.library.exception.DaoException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,30 +52,25 @@ public class BookDaoImpl extends AbstractDao<Book, String> implements BookDao<Bo
 
     @Override
     public void save(Book book) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(ADD_BOOK);
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setString(2, book.getAuthor());
-            preparedStatement.setString(3, book.getGenre());
-            preparedStatement.setString(4, book.getDescription());
-            preparedStatement.setInt(5, book.getNumberOfInstances());
-            preparedStatement.setInt(6, book.getNumberOfInstances());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+            String title = book.getTitle();
+            String author = book.getAuthor();
+            String genre = book.getGenre();
+            String description = book.getDescription();
+            int numberOfInstances = book.getNumberOfInstances();
+            int numberOfAvailableInstances = book.getNumberOfInstances();
+            executeUpdate(ADD_BOOK, title, author, genre, description, numberOfInstances, numberOfAvailableInstances);
     }
 
     public void saveBookInIssued(Book book) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(ADD_BOOK_IN_ISSUED);
-            preparedStatement.setInt(1, book.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+//        try {
+//            PreparedStatement preparedStatement = executeUpdate(ADD_BOOK_IN_ISSUED);
+//            preparedStatement.setInt(1, book.getId());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage(), e);
+//            throw new DaoException(e.getMessage(), e);
+//        }
+        executeUpdate(ADD_BOOK_IN_ISSUED, book.getId());
     }
 
     public List<Book> findAllIssuedBooks() throws DaoException {
@@ -86,44 +79,32 @@ public class BookDaoImpl extends AbstractDao<Book, String> implements BookDao<Bo
 
     @Override
     public void removeByTitle(String title) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(DELETE_BOOK_BY_TITLE);
-            preparedStatement.setString(1, title);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+        executeUpdate(DELETE_BOOK_BY_TITLE, title);
     }
 
     @Override
     public void removeBooksIssued(int bookId) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(DELETE_BOOK_FROM_ISSUED);
-            preparedStatement.setInt(1, bookId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new DaoException(e.getMessage(), e);
-        }
+//        try {
+//            PreparedStatement preparedStatement = executeUpdate(DELETE_BOOK_FROM_ISSUED);
+//            preparedStatement.setInt(1, bookId);
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage(), e);
+//            throw new DaoException(e.getMessage(), e);
+//        }
+        executeUpdate(DELETE_BOOK_FROM_ISSUED, bookId);
     }
 
     @Override
     public void updateBook(Book book) throws DaoException {
-        try {
-            PreparedStatement preparedStatement = executeUpdate(UPDATE_BOOK);
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setString(2, book.getAuthor());
-            preparedStatement.setString(3, book.getGenre());
-            preparedStatement.setString(4, book.getDescription());
-            preparedStatement.setInt(5, book.getNumberOfInstances());
-            preparedStatement.setInt(6, book.getNumberAvailableOfInstances());
-            preparedStatement.setInt(7, book.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        }
+        String title = book.getTitle();
+        String author = book.getAuthor();
+        String genre = book.getGenre();
+        String description = book.getDescription();
+        int numberOfInstances = book.getNumberOfInstances();
+        int numberOfAvailableInstances = book.getNumberAvailableOfInstances();
+        int id = book.getId();
+        executeUpdate(UPDATE_BOOK, title, author, genre, description, numberOfInstances, numberOfAvailableInstances, id);
     }
 
     @Override

@@ -53,15 +53,17 @@ public abstract class AbstractDao<T, K> implements Dao<T, K> {
         }
     }
 
-    protected PreparedStatement executeUpdate(String query) throws DaoException {
+//    protected PreparedStatement executeUpdate(String query, Object... parameters) throws DaoException {
+    protected void executeUpdate(String query, Object... parameters) throws DaoException {
         PreparedStatement preparedStatement = null;
         try{
             preparedStatement = connection.prepareStatement(query);
+            setParametersPreparedStatement(preparedStatement, parameters);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new DaoException(e.getMessage(), e);
         }
-        return preparedStatement;
+//        return preparedStatement;
     }
 
     public Connection getConnection() {
