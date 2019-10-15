@@ -25,7 +25,7 @@
 
         <input type="submit" value="<fmt:message key = "Login.enter"/>"/>
     </form>
-    <h2><c:if test="${errorLoginPassMessage == true}"><fmt:message key="Login.errorLoginPassMessage"/></c:if></h2>
+    <p><c:if test="${errorLoginPassMessage == true}"><fmt:message key="Login.errorLoginPassMessage"/></c:if></p>
 </div>
 </body>
 </html>

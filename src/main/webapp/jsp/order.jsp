@@ -5,16 +5,15 @@
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 <html>
+<head>
+    <title><fmt:message key="Login.title"/></title>
+</head>
 <style>
     <%@include file="/jsp/css/main.css" %>
     <%@include file="/jsp/css/header.css" %>
 </style>
-<head>
-    <title>Title</title>
-</head>
 <body>
-<jsp:include page="/jsp/header/header_edit.jsp"/>
-<%--<div class="main">--%>
+<jsp:include page="/jsp/header/header_orders.jsp"/>
 <div class="order">
     <c:choose>
         <c:when test="${bookEmpty == true}">
@@ -28,9 +27,8 @@
                     <th><fmt:message key="Order.name"/></th>
                     <th><fmt:message key="Order.title"/></th>
                     <th><fmt:message key="Order.date"/></th>
-                    <th><fmt:message key="Order.active"/></th>
                     <c:if test="${reader == true}">
-                    <th><fmt:message key="Order.action"/></th>
+                        <th><fmt:message key="Order.action"/></th>
                     </c:if>
                 </tr>
                 <c:forEach var="order" items="${orders}">
@@ -39,41 +37,17 @@
                         <td>${order.name}</td>
                         <td>${order.title}</td>
                         <td>${order.date}</td>
-                        <c:choose>
-                            <c:when test="${order.active == true}">
-                                <td>
-                                    <fmt:message key="Order.waiting"/>
-                                </td>
-                            </c:when>
-                            <c:otherwise>
-                                <td><fmt:message key="Order.close"/></td>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <c:if test="${order.active == true && reader == true}">
-                                    <td>
-                                        <form method="get" action="/">
-                                            <input type="hidden" name="command" value="cancelOrder"/>
-                                            <input type="hidden" name="id" value="${order.id}"/>
-                                            <input type="hidden" name="bookId" value="${order.bookId}"/>
-                                            <input class="logout" type="submit"
-                                                   value="<fmt:message key="Order.cancel"/>"/>
-                                        </form>
-                                    </td>
+                        <c:if test="${reader == true}">
+                            <td>
+                                <a href="/?command=cancelOrder&id=${order.id}&bookId=${order.bookId}"><fmt:message
+                                        key="Order.cancel"/></a>
+                            </td>
                         </c:if>
                     </tr>
                 </c:forEach>
             </table>
         </c:otherwise>
     </c:choose>
-    <div class="header-right">
-        <c:if test="${admin == true}">
-        <form method="post" action="/">
-            <input type="hidden" name="command" value="showUsers"/>
-            <input type="submit" value="<fmt:message key="Main.back"/>" class="logout"/>
-        </form>
-        </c:if>
-    </div>
 </div>
 </body>
 </html>

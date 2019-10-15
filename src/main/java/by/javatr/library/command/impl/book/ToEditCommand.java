@@ -1,6 +1,6 @@
 package by.javatr.library.command.impl.book;
 
-import by.javatr.library.command.AbstractBookCommand;
+import by.javatr.library.command.AbstractCommand;
 import by.javatr.library.command.CommandResult;
 import by.javatr.library.entity.Book;
 import by.javatr.library.exception.ServiceException;
@@ -10,20 +10,18 @@ import by.javatr.library.util.Constants;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class DeleteBookCommand extends AbstractBookCommand {
+public class ToEditCommand extends AbstractCommand {
 
-    public DeleteBookCommand(BookService bookService) {
+    public ToEditCommand(BookService bookService) {
         super(bookService);
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
-        String title = request.getParameter("title");
-        Optional<Book> bookOptional = bookService.findByTitle(title);
-        if (bookOptional.isPresent()) {
-            Book book = bookOptional.get();
-            bookService.delete(book);
-        }
-        return new CommandResult(Constants.MAIN_COMMAND, true);
+        int id = Integer.parseInt(request.getParameter("id"));
+        Optional<Book> byTitle = bookService.findById(id);
+        Book book = byTitle.get();
+        request.setAttribute("book", book);
+        return new CommandResult(Constants.EDIT, false);
     }
 }

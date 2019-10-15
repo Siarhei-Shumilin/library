@@ -1,12 +1,13 @@
 package by.javatr.library.command.impl.book;
 
-import by.javatr.library.command.AbstractBookCommand;
+import by.javatr.library.command.AbstractCommand;
 import by.javatr.library.command.CommandResult;
 import by.javatr.library.entity.Book;
 import by.javatr.library.entity.Role;
 import by.javatr.library.entity.User;
 import by.javatr.library.exception.ServiceException;
 import by.javatr.library.service.BookService;
+import by.javatr.library.service.OrderService;
 import by.javatr.library.util.Constants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SearchBookBookCommand extends AbstractBookCommand {
+public class SearchBookCommand extends AbstractCommand {
 
-    public SearchBookBookCommand(BookService bookService) {
+    public SearchBookCommand(BookService bookService) {
         super(bookService);
     }
 
@@ -38,7 +39,6 @@ public class SearchBookBookCommand extends AbstractBookCommand {
         Role role = user.getRole();
         if (Role.READER.equals(role)) {
             page = Constants.READER;
-
         } else if (Role.ADMIN.equals(role)) {
             page = Constants.MAIN;
             session.removeAttribute("error");

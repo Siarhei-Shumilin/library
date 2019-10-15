@@ -4,7 +4,10 @@
 
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
-<html><head><title>Welcome</title></head>
+<html>
+<head>
+    <title><fmt:message key="Login.title"/></title>
+</head>
 <body>
 <h3>Error page</h3>
 <hr/>

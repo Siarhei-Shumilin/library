@@ -31,9 +31,9 @@ public class UserService {
     }
 
     public List<User> findAll() throws ServiceException {
-        UserDaoImp dao = daoFactory.createUserDao();
         List<User> allUsers = null;
         try {
+            UserDaoImp dao = daoFactory.createUserDao();
            allUsers = dao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -41,4 +41,14 @@ public class UserService {
         return allUsers;
     }
 
+    public Optional<User> findByName(String name) throws ServiceException {
+        Optional<User> user = Optional.empty();
+        try {
+            UserDaoImp dao = daoFactory.createUserDao();
+            user = dao.findByName(name);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return user;
+    }
 }

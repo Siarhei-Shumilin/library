@@ -5,13 +5,11 @@ import by.javatr.library.dao.impl.BookDaoImpl;
 import by.javatr.library.entity.Book;
 import by.javatr.library.exception.DaoException;
 import by.javatr.library.exception.ServiceException;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BookService {
-    private final static Logger LOGGER = Logger.getLogger(BookService.class);
 
     private DaoFactory daoFactory;
 
@@ -25,18 +23,16 @@ public class BookService {
             BookDaoImpl bookDao = daoFactory.createBookDao();
             books = bookDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
         return books;
     }
 
     public void updateBook(Book book) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
         try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
             bookDao.updateBook(book);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -46,7 +42,6 @@ public class BookService {
             BookDaoImpl bookDao = daoFactory.createBookDao();
             book = bookDao.findById(id);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
         return book;
@@ -57,58 +52,44 @@ public class BookService {
             BookDaoImpl bookDao = daoFactory.createBookDao();
             book = bookDao.findByTitle(title);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
         return book;
     }
 
     public List<Book> findByGenre(String genre) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
         List<Book> booksByGenre = null;
         try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
             booksByGenre = bookDao.findByGenre(genre);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
         return booksByGenre;
     }
 
     public void save(Book book) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
         try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
             bookDao.save(book);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
     public void delete(Book book) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
         try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
             bookDao.removeByTitle(book.getTitle());
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new ServiceException(e.getMessage(), e);
-        }
-    }
-
-    public void deleteBooksIssued(int bookId) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
-        try {
-            bookDao.removeBooksIssued(bookId);
-        } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
     public List<Book> findPage(int number, int pageSize) throws ServiceException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
         List<Book> bookList = null;
         try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
             bookList = bookDao.findPage(number, pageSize);
         } catch (DaoException e){
             throw new ServiceException(e.getMessage(), e);
@@ -117,9 +98,15 @@ public class BookService {
         return bookList;
     }
 
-    public long size() throws DaoException {
-        BookDaoImpl bookDao = daoFactory.createBookDao();
-        List<Book> all = bookDao.findAll();
-        return all.size();
+    public long size() throws ServiceException {
+        long size = 0;
+        try {
+            BookDaoImpl bookDao = daoFactory.createBookDao();
+            List<Book> all = bookDao.findAll();
+            size = all.size();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return size;
     }
 }

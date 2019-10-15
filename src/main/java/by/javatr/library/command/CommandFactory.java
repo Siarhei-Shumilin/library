@@ -25,43 +25,43 @@ public class CommandFactory {
 
         switch (action) {
             case "login":
-                return new LoginCommand(new UserService(daoFactory));
+                return new LoginCommand(new BookService(daoFactory), new OrderService(daoFactory), new UserService(daoFactory));
             case "addBook":
-                return new AddBookBookCommand(new BookService(daoFactory));
+                return new AddBookCommand(new BookService(daoFactory));
             case "delete":
-                return new DeleteBookCommand(new BookService(daoFactory));
+                return new DeleteCommand(new BookService(daoFactory));
             case "order":
-                return new OrderBookCommand(new OrderService(daoFactory));
+                return new OrderBookCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "to_edit":
-                return new ToEditBookCommand(new BookService(daoFactory));
+                return new ToEditCommand(new BookService(daoFactory));
             case "language":
                 return new LanguageCommand();
             case "logout":
                 return new LogOutCommand();
             case "main":
-                return new MainPageCommand(new BookService(daoFactory));
+                return new MainPageCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "edit":
-                return new EditBookBookCommand(new BookService(daoFactory));
+                return new EditBookCommand(new BookService(daoFactory));
             case "searchBook":
-                return new SearchBookBookCommand(new BookService(daoFactory));
+                return new SearchBookCommand(new BookService(daoFactory));
             case "showUserOrders":
                 return new ShowUserOrdersCommand(new OrderService(daoFactory));
             case "searchOrder":
-                return new SearchOrderCommand(new OrderService(daoFactory));
+                return new SearchOrderCommand(new OrderService(daoFactory), new UserService(daoFactory));
             case "cancelOrder":
-                return new CancelOrderCommand(new OrderService(daoFactory));
+                return new CancelOrderCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "pagination":
-                return new PaginationCommand(new BookService(daoFactory));
+                return new PaginationCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "ShowBooksByGenre":
-                return new ShowBooksByGenreBookCommand(new BookService(daoFactory));
+                return new ShowBooksByGenreCommand(new BookService(daoFactory));
             case "showUsers":
                 return new ShowUsersCommand(new UserService(daoFactory));
             case "giveBook":
-                return new GiveOrderedBookCommand(new OrderService(daoFactory));
+                return new GiveOrderedBookCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "showBooksHaveReader":
-                return new ShowBooksHaveReaderCommand();
+                return new ShowBooksHaveReaderCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "returnBook":
-                return new ReturnBookInStorageCommand(new BookService(daoFactory));
+                return new ReturnInStorageCommand(new BookService(daoFactory), new OrderService(daoFactory));
             default:
                 throw new IllegalArgumentException("Unknown command");
         }

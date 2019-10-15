@@ -13,7 +13,6 @@ public interface BookDao<T,K> extends Dao<T,K>  {
     void save(T entity) throws DaoException;
     Optional<Book> findById(int id) throws DaoException;
     List<Book> findByGenre(String genre) throws DaoException;
-    void removeBooksIssued(int bookId) throws DaoException;
     List<Book> findPage(int number, int pageSize) throws DaoException;
     long size() throws DaoException;
 }

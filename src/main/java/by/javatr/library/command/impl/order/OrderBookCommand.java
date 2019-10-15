@@ -1,20 +1,21 @@
 package by.javatr.library.command.impl.order;
 
-import by.javatr.library.command.AbstractOrderCommand;
+import by.javatr.library.command.AbstractCommand;;
 import by.javatr.library.command.CommandResult;
 import by.javatr.library.entity.Order;
 import by.javatr.library.entity.User;
 import by.javatr.library.exception.ServiceException;
+import by.javatr.library.service.BookService;
 import by.javatr.library.service.OrderService;
 import by.javatr.library.util.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class OrderBookCommand extends AbstractOrderCommand {
+public class OrderBookCommand extends AbstractCommand {
 
-    public OrderBookCommand(OrderService orderService) {
-        super(orderService);
+    public OrderBookCommand(BookService bookService, OrderService orderService) {
+        super(bookService, orderService);
     }
 
     @Override

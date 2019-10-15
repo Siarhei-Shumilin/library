@@ -5,14 +5,17 @@
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 <html>
+<head>
+    <title><fmt:message key="Login.title"/></title>
+</head>
 <style>
     <%@include file="/jsp/css/main.css" %>
     <%@include file="/jsp/css/header.css" %>
 </style>
 <body>
 <jsp:include page="/jsp/header/header_librarian.jsp"/>
-
-<div class="main">
+<br/><br/><br/>
+<div class="order">
 <c:choose>
     <c:when test="${booksEmpty == true}">
         <h2><fmt:message key="Book.empty"/></h2>
@@ -20,21 +23,21 @@
     <c:otherwise>
     <table>
         <tr>
-            <th><fmt:message key="Main.title"/></th>
-            <th><fmt:message key="Main.author"/></th>
-            <th><fmt:message key="Main.genre"/></th>
+            <th><fmt:message key="Order.number"/></th>
+            <th><fmt:message key="Order.name"/></th>
+            <th><fmt:message key="Order.title"/></th>
+            <th><fmt:message key="Order.date"/></th>
             <th><fmt:message key="Order.action"/></th>
         </tr>
-        <c:forEach var="book" items="${books}">
+        <c:forEach var="order" items="${orders}">
         <tr>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.genre}</td>
+            <td>${order.id}</td>
+            <td>${order.name}</td>
+            <td>${order.title}</td>
+            <td>${order.date}</td>
             <form method="POST" action="/">
                 <td>
-                    <input type="hidden" name="command" value="returnBook">
-                    <input type="hidden" name="bookId" value="${book.id}">
-                    <input class="main-submit" type="submit" value="<fmt:message key="Order.return"/>"/>
+                    <a href="/?command=returnBook&orderId=${order.id}&title=${order.title}"><fmt:message key="Order.return"/></a><br/>
                 </td>
             </form>
             </c:forEach>

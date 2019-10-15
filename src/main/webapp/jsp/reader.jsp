@@ -6,6 +6,9 @@
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 <html>
+<head>
+    <title><fmt:message key="Login.title"/></title>
+</head>
 <style>
     <%@include file="/jsp/css/main.css" %>
     <%@include file="/jsp/css/header.css" %>
@@ -14,8 +17,9 @@
 <c:set var="page" value="${page}" scope="request"/>
 <jsp:include page="/jsp/header/header_reader.jsp"/>
 <h2><c:if test="${errorSearch == true}"><fmt:message key="Error.searchBook"/></c:if></h2>
+<br/>
 <div class="tableOfGenre">
-    <p style="color: white"><fmt:message key="Book.navigation"/></p>
+    <p style="color: white"><fmt:message key="Book.menu"/></p>
     <a href="/?command=main"><fmt:message key="Book.main"/></a>
     <br/>
     <c:forEach items="${allBooks}" var="book">
@@ -43,7 +47,7 @@
                 </li>
                 </c:when>
                     <c:otherwise>
-                        <p style="background-color: #1E90FF"><fmt:message key="Book.available"/></p>
+                        <p><fmt:message key="Book.available"/></p>
                     </c:otherwise>
                 </c:choose>
             </ul>

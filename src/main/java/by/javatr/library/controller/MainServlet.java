@@ -9,6 +9,7 @@ import by.javatr.library.dao.connection.ProxyConnection;
 import by.javatr.library.exception.DaoException;
 import by.javatr.library.exception.ServiceException;
 import by.javatr.library.util.Constants;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
+    private final static Logger LOGGER = Logger.getLogger(MainServlet.class);
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -35,6 +37,7 @@ public class MainServlet extends HttpServlet {
             Command command = commandFactory.createCommand(action);
             commandResult = command.execute(request);
         } catch (ServiceException | DaoException e) {
+            LOGGER.error(e.getMessage(), e);
             request.setAttribute("error", e.getMessage());
             commandResult = new CommandResult(Constants.ERROR, false);
         }

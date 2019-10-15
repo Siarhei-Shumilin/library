@@ -1,18 +1,17 @@
 package by.javatr.library.service;
 
+import by.javatr.library.builder.impl.OrderBuilder;
 import by.javatr.library.dao.DaoFactory;
-import by.javatr.library.dao.impl.BookDaoImpl;
 import by.javatr.library.dao.impl.OrderDaoImpl;
-import by.javatr.library.entity.Book;
 import by.javatr.library.entity.Order;
+import by.javatr.library.entity.OrderStatus;
 import by.javatr.library.exception.DaoException;
 import by.javatr.library.exception.ServiceException;
-import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrderService {
-    private final static Logger LOGGER = Logger.getLogger(OrderService.class);
     private DaoFactory daoFactory;
 
     public OrderService(DaoFactory daoFactory) {
@@ -20,22 +19,31 @@ public class OrderService {
     }
 
     public void save(Order order) throws ServiceException {
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
         try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
             orderDao.save(order);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
-    public List<Order> findActiveOrdersByUserId(int userId) throws ServiceException {
-        List<Order> allOrders = null;
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
+    public Optional<Order> findOrderById(int id) throws ServiceException {
+        Optional<Order> orderById  = Optional.empty();
         try {
-            allOrders = orderDao.findByUserIdActiveOrders(userId);
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
+            orderById = orderDao.findOrderById(id);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return orderById;
+    }
+
+    public List<Order> findNewOrdersByUserId(int userId) throws ServiceException {
+        List<Order> allOrders = null;
+        try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
+            allOrders = orderDao.findByUserIdNewOrders(userId);
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
         return allOrders;
@@ -43,11 +51,21 @@ public class OrderService {
 
     public List<Order> findAllOrdersByUserId(int userId) throws ServiceException {
         List<Order> allOrders = null;
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
         try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
             allOrders = orderDao.findByUserIdAllOrders(userId);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return allOrders;
+    }
+
+    public List<Order> findOrdersByStatus(OrderStatus orderStatus) throws ServiceException {
+        List<Order> allOrders = null;
+        try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
+            allOrders = orderDao.findOrdersByStatus(orderStatus);
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
         return allOrders;
@@ -55,41 +73,56 @@ public class OrderService {
 
     public List<Order> findAll() throws ServiceException {
         List<Order> allOrders = null;
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
         try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
             allOrders = orderDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
         return allOrders;
     }
 
-    public void updateOrderById(int id) throws ServiceException {
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
+    public void updateOrderById(int id, OrderStatus orderStatus) throws ServiceException {
         try {
-            orderDao.updateOrderById(id);
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
+            orderDao.updateOrderById(id, orderStatus);
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
     public List<Order> findPage(int number, int pageSize) throws ServiceException {
-        OrderDaoImpl orderDao = daoFactory.createOrderDao();
         List<Order> orderList = null;
         try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
             orderList = orderDao.findPage(number, pageSize);
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }
 
         return orderList;
     }
 
-    public long size() throws DaoException {
+    public long size() throws ServiceException {
+        int size = 0;
+        try {
+            OrderDaoImpl orderDao = daoFactory.createOrderDao();
+            List<Order> all = orderDao.findAllNewOrder();
+            size = all.size();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return size;
+    }
+
+    public List<Order> findAllNewOrder() throws ServiceException {
         OrderDaoImpl orderDao = daoFactory.createOrderDao();
-        List<Order> all = orderDao.findAll();
-        return all.size();
+        List<Order> activeOrders = null;
+        try {
+            activeOrders = orderDao.findAllNewOrder();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return activeOrders;
     }
 }

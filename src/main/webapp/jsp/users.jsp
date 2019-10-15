@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -6,16 +5,15 @@
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 <html>
+<head>
+    <title><fmt:message key="Login.title"/></title>
+</head>
 <style>
     <%@include file="/jsp/css/main.css" %>
     <%@include file="/jsp/css/header.css" %>
 </style>
-<head>
-    <title>Title</title>
-</head>
 <body>
 <jsp:include page="/jsp/header/header_edit.jsp"/>
-<%--<div class="main">--%>
 <div class="order">
     <h2><fmt:message key="User.list"/></h2>
     <table>
@@ -28,11 +26,9 @@
         <tr>
             <td>${user.name}</td>
             <td>${user.role}</td>
-            <td><form method="get" action="/">
-                <input type="hidden" name="command" value="showUserOrders"/>
-                <input type="hidden" name="id" value="${user.id}"/>
-                <input class="logout" type="submit" value="<fmt:message key="Order.orders"/>"/>
-            </form></td>
+            <td>
+                <a href="/?command=showUserOrders&id=${user.id}"><fmt:message key="Order.orders"/></a>
+            </td>
         </tr>
     </c:forEach>
     </table>

@@ -1,6 +1,6 @@
 package by.javatr.library.command.impl.order;
 
-import by.javatr.library.command.Command;
+import by.javatr.library.command.AbstractCommand;
 import by.javatr.library.command.CommandResult;
 import by.javatr.library.entity.Order;
 import by.javatr.library.entity.Role;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ShowUserOrdersCommand implements Command {
-    private OrderService orderService;
+public class ShowUserOrdersCommand extends AbstractCommand {
+
 
     public ShowUserOrdersCommand(OrderService orderService) {
-        this.orderService = orderService;
+        super(orderService);
     }
 
     @Override
@@ -35,12 +35,12 @@ public class ShowUserOrdersCommand implements Command {
         } else if (Role.READER.equals(user.getRole())) {
             id = user.getId();
             page = Constants.ORDER;
-            orderByUserId = orderService.findActiveOrdersByUserId(id);
+            orderByUserId = orderService.findNewOrdersByUserId(id);
             request.setAttribute("reader", true);
         } else if (Role.LIBRARIAN.equals(user.getRole())){
             id = Integer.parseInt(request.getParameter("id"));
             page = Constants.ORDER;
-            orderByUserId = orderService.findActiveOrdersByUserId(id);
+            orderByUserId = orderService.findNewOrdersByUserId(id);
         }
 
         if (orderByUserId.size() == 0) {

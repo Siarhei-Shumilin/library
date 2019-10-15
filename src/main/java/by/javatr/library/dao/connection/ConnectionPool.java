@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
@@ -17,6 +19,7 @@ public class ConnectionPool {
     private final static String PASSWORD = DbPropertyManager.getProperty("password");
     private final static int POOL_SIZE = Integer.parseInt(DbPropertyManager.getProperty("poolSize"));
     private static final ConnectionPool INSTANCE = new ConnectionPool(POOL_SIZE);
+    private List<ProxyConnection> listCon = new ArrayList<>();
 
     private ConnectionPool(int poolSize) {
         connectionQueue = new LinkedBlockingQueue<>(poolSize);
@@ -30,7 +33,9 @@ public class ConnectionPool {
             connectionQueue.offer(createConnection());
         }
     }
-
+    /**
+     * @return new ProxyConnection
+     */
     private ProxyConnection createConnection() {
         ProxyConnection proxyConnection = null;
         try {
@@ -42,24 +47,39 @@ public class ConnectionPool {
         }
         return proxyConnection;
     }
-
+    /**
+     * @return instance of Connection pool
+     */
     public static ConnectionPool getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * @return ProxyConnection from pool
+     */
     public ProxyConnection getConnection() throws DaoException {
         ProxyConnection connection;
         try {
             connection = connectionQueue.take();
+            listCon.add(connection);
         } catch (InterruptedException e) {
             throw new DaoException(e.getMessage(), e);
         }
         return connection;
     }
 
+    /**
+     * @param connection return connection to pool
+     */
     /*package private*/ void closeConnection(ProxyConnection connection) {
         try {
-            connectionQueue.put(connection);
+            boolean contains = listCon.contains(connection);
+            if (contains) {
+                connectionQueue.put(connection);
+                listCon.remove(connection);
+            } else {
+                throw new IllegalArgumentException();
+            }
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage(), e);
             connectionQueue.offer(createConnection());

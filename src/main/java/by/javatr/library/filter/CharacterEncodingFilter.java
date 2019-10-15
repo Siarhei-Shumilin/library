@@ -2,7 +2,9 @@ package by.javatr.library.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
-
+/**
+ * filter for UTF-8 encoding
+ */
 public class CharacterEncodingFilter implements Filter {
     private String code = "UTF-8";
     @Override

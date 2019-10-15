@@ -1,26 +1,28 @@
 package by.javatr.library.command.impl.book;
 
-import by.javatr.library.command.AbstractBookCommand;
+import by.javatr.library.command.AbstractCommand;
 import by.javatr.library.command.CommandResult;
 import by.javatr.library.entity.Book;
-import by.javatr.library.exception.DaoException;
+import by.javatr.library.entity.OrderStatus;
 import by.javatr.library.exception.ServiceException;
 import by.javatr.library.service.BookService;
+import by.javatr.library.service.OrderService;
 import by.javatr.library.util.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class ReturnBookInStorageCommand extends AbstractBookCommand {
+public class ReturnInStorageCommand extends AbstractCommand {
 
-    public ReturnBookInStorageCommand(BookService bookService) {
-        super(bookService);
+    public ReturnInStorageCommand(BookService bookService, OrderService orderService) {
+        super(bookService, orderService);
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws ServiceException, DaoException {
-        int bookId = Integer.parseInt(request.getParameter("bookId"));
-        Optional<Book> bookOptional = bookService.findById(bookId);
+    public CommandResult execute(HttpServletRequest request) throws ServiceException {
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        String title = request.getParameter("title");
+        Optional<Book> bookOptional = bookService.findByTitle(title);
         Book book = null;
         if (bookOptional.isPresent()) {
             book = bookOptional.get();
@@ -28,8 +30,7 @@ public class ReturnBookInStorageCommand extends AbstractBookCommand {
             book.setNumberAvailableOfInstances(numberAvailableOfInstances + 1);
         }
         bookService.updateBook(book);
-
-        bookService.deleteBooksIssued(bookId);
+        orderService.updateOrderById(orderId, OrderStatus.CLOSE);
         return new CommandResult(Constants.SHOW_BOOKS_HAVE_READER_COMMAND, true);
     }
 }

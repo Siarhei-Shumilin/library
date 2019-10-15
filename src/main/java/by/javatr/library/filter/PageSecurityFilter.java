@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Filter to protect jsp from manual access (when someone trying to type address manually)
+ */
 public class PageSecurityFilter implements Filter {
     private String indexPath;
 
