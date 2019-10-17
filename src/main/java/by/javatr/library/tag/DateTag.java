@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateTag extends TagSupport {
-    private static final String PATTERN = "MM/dd/yyyy HH:mm:ss";
+    private static final String PATTERN = "dd/MM/yyyy HH:mm:ss";
 
     @Override
     public int doStartTag() throws JspException {

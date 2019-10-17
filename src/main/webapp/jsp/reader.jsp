@@ -22,8 +22,8 @@
     <p style="color: white"><fmt:message key="Book.menu"/></p>
     <a href="/?command=main"><fmt:message key="Book.main"/></a>
     <br/>
-    <c:forEach items="${allBooks}" var="book">
-        <a href="/?command=ShowBooksByGenre&genre=${book.genre}">${book.genre}</a>
+    <c:forEach items="${genre}" var="genre">
+        <a href="/?command=ShowBooksByGenre&genre=${genre}">${genre}</a>
         <br/>
     </c:forEach>
 

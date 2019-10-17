@@ -10,8 +10,7 @@ import by.javatr.library.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class AbstractCommand implements Command {
     private final static int PAGE_SIZE = 5;
@@ -41,18 +40,12 @@ public abstract class AbstractCommand implements Command {
         }
         List<Book> allBooks = bookService.findPage(number, PAGE_SIZE);
         if (Role.READER.equals(user.getRole())) {
-            List<Book> booksGenre = bookService.findAll();
-            for (int i = 0; i < booksGenre.size(); i++) {
-                for (int j = 1; j < booksGenre.size(); j++) {
-                    if (i != j) {
-                        if (booksGenre.get(i).getGenre().equals(booksGenre.get(j).getGenre())) {
-                            Book book = booksGenre.get(i);
-                            booksGenre.remove(book);
-                        }
-                    }
-                }
+            List<Book> books = bookService.findAll();
+            Set<String> genre = new HashSet<>();
+            for (int i = 0; i < books.size(); i++) {
+                genre.add(books.get(i).getGenre());
             }
-            request.setAttribute("allBooks", booksGenre);
+            request.setAttribute("genre", genre);
         }
         request.setAttribute("books", allBooks);
         long pageCount = (bookService.size() + PAGE_SIZE - 1) / PAGE_SIZE;
