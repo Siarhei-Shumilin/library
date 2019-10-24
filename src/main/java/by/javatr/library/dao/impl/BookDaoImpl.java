@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 public class BookDaoImpl extends AbstractDao<Book, String> implements BookDao<Book, String> {
 
     private final static String ADD_BOOK = "insert into books(title,author,genre,description,number_instances, number_available_instances) values (?,?,?,?,?,?)";
-//    private final static String ADD_BOOK_IN_ISSUED = "insert into books_issued(book_id) values (?)";
-//    private final static String FIND_BOOK_IN_ISSUED = "SELECT books.id, books.title, books.author, books.genre, books.description, books.number_instances, books.number_available_instances FROM books_issued INNER JOIN books ON books_issued.book_id=books.id";
     private final static String FIND_All_BOOKS = "SELECT * FROM books";
     private final static String FIND_BOOK_BY_TITLE = "SELECT * FROM books WHERE title = ?";
     private final static String FIND_BOOK_BY_ID = "SELECT * FROM books WHERE id = ?";

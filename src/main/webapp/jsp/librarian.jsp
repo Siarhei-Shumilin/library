@@ -18,7 +18,7 @@
 <br/>
 <br/>
 <br/>
-<div class="main">
+<div class="order">
     <c:choose>
         <c:when test="${bookEmpty == true}">
             <h2><fmt:message key="Order.empty"/></h2>

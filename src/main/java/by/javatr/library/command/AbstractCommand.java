@@ -38,17 +38,18 @@ public abstract class AbstractCommand implements Command {
         if (page != null) {
             number = Integer.parseInt(page);
         }
+        List<Book> books = bookService.findAll();
         List<Book> allBooks = bookService.findPage(number, PAGE_SIZE);
         if (Role.READER.equals(user.getRole())) {
-            List<Book> books = bookService.findAll();
             Set<String> genre = new HashSet<>();
-            for (int i = 0; i < books.size(); i++) {
-                genre.add(books.get(i).getGenre());
+            for (Book book : books) {
+                genre.add(book.getGenre());
             }
             request.setAttribute("genre", genre);
         }
         request.setAttribute("books", allBooks);
-        long pageCount = (bookService.size() + PAGE_SIZE - 1) / PAGE_SIZE;
+        int booksListSize = books.size();
+        long pageCount = (booksListSize + PAGE_SIZE - 1) / PAGE_SIZE;
         request.setAttribute("count", pageCount);
         request.setAttribute("page", page);
 

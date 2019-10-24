@@ -30,11 +30,11 @@ public class AddBookCommand extends AbstractCommand {
             String genre = request.getParameter("genre");
             String description = request.getParameter("description");
             String number = request.getParameter("numberOfInstances");
-            boolean validateTitle = BookValidator.validate(title);
-            boolean validateAuthor = BookValidator.validate(author);
-            boolean validateGenre = BookValidator.validate(genre);
-            boolean validateDescription = BookValidator.validateDescription(description);
-            boolean validateNumberOfInstances = BookValidator.validateNumberOfInstances(number);
+            boolean validateTitle = BookValidator.validate(title, Constants.GENERAL_PATTERN);
+            boolean validateAuthor = BookValidator.validate(author, Constants.GENERAL_PATTERN);
+            boolean validateGenre = BookValidator.validate(genre, Constants.GENERAL_PATTERN);
+            boolean validateDescription = BookValidator.validate(description, Constants.DESCRIPTION_PATTERN);
+            boolean validateNumberOfInstances = BookValidator.validate(number, Constants.NUMBER_OF_INSTANCES_PATTERN);
             if (validateTitle && validateAuthor && validateGenre && validateDescription && validateNumberOfInstances ){
                 int numberOfInstances = Integer.parseInt(number);
                 Book book = new Book(title, author, genre, description, numberOfInstances, numberOfInstances);
