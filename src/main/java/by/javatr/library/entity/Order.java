@@ -9,7 +9,6 @@ public class Order {
     private int userId;
     private int bookId;
 
-
     public int getId() {
         return id;
     }

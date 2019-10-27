@@ -1,4 +1,4 @@
-package by.javatr.library.command.impl.order;
+package by.javatr.library.command.impl.user;
 
 import by.javatr.library.command.AbstractCommand;
 import by.javatr.library.command.CommandResult;
@@ -24,22 +24,18 @@ public class ShowUserOrdersCommand extends AbstractCommand {
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         int id = 0;
-        String page = null;
         User user = (User) session.getAttribute("user");
         List<Order> orderByUserId = null;
         if (Role.ADMIN.equals(user.getRole())) {
             id = Integer.parseInt(request.getParameter("id"));
             orderByUserId = orderService.findAllOrdersByUserId(id);
-            page = Constants.ORDER;
             request.setAttribute("admin", true);
         } else if (Role.READER.equals(user.getRole())) {
             id = user.getId();
-            page = Constants.ORDER;
             orderByUserId = orderService.findNewOrdersByUserId(id);
             request.setAttribute("reader", true);
         } else if (Role.LIBRARIAN.equals(user.getRole())){
             id = Integer.parseInt(request.getParameter("id"));
-            page = Constants.ORDER;
             orderByUserId = orderService.findNewOrdersByUserId(id);
         }
 
@@ -47,6 +43,6 @@ public class ShowUserOrdersCommand extends AbstractCommand {
             request.setAttribute("bookEmpty", true);
         }
         request.setAttribute("orders", orderByUserId);
-        return new CommandResult(page, false);
+        return new CommandResult(Constants.ORDER, false);
     }
 }

@@ -20,6 +20,6 @@ public class GiveOrderedBookCommand extends AbstractCommand {
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         int id = Integer.parseInt(request.getParameter("id"));
         orderService.updateOrderById(id, OrderStatus.ACTIVE);
-        return new CommandResult(Constants.MAIN_COMMAND, false);
+        return new CommandResult(Constants.MAIN_COMMAND, true);
     }
 }

@@ -1,8 +1,9 @@
 package by.javatr.library.command;
 
-import by.javatr.library.command.impl.*;
 import by.javatr.library.command.impl.book.*;
+import by.javatr.library.command.impl.common.*;
 import by.javatr.library.command.impl.order.*;
+import by.javatr.library.command.impl.user.ShowUserOrdersCommand;
 import by.javatr.library.command.impl.user.ShowUsersCommand;
 import by.javatr.library.dao.DaoFactory;
 import by.javatr.library.service.BookService;
@@ -50,8 +51,6 @@ public class CommandFactory {
                 return new SearchOrderCommand(new OrderService(daoFactory), new UserService(daoFactory));
             case "cancelOrder":
                 return new CancelOrderCommand(new BookService(daoFactory), new OrderService(daoFactory));
-            case "pagination":
-                return new PaginationCommand(new BookService(daoFactory), new OrderService(daoFactory));
             case "ShowBooksByGenre":
                 return new ShowBooksByGenreCommand(new BookService(daoFactory));
             case "showUsers":

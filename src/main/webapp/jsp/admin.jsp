@@ -72,7 +72,7 @@
 
         <c:forEach var="i" begin="1" end="${count}">
             <form method="post" style="display: inline-block">
-                <input type="hidden" name="command" value="pagination"/>
+                <input type="hidden" name="command" value="main"/>
                 <input type="submit" name="page" value="${i}">
             </form>
         </c:forEach>

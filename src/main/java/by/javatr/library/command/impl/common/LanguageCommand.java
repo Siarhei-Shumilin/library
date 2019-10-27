@@ -1,4 +1,4 @@
-package by.javatr.library.command.impl;
+package by.javatr.library.command.impl.common;
 
 import by.javatr.library.command.Command;
 import by.javatr.library.command.CommandResult;

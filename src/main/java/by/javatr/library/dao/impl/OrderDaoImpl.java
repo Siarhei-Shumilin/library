@@ -43,15 +43,18 @@ public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao
         return executeQuery(FIND_NEW_ORDERS_BY_USER_ID, new OrderBuilder(), userId);
     }
 
+    @Override
     public List<Order> findOrdersByStatus(OrderStatus orderStatus) throws DaoException {
         String status = orderStatus.getAction();
         return executeQuery(FIND_ORDERS_BY_STATUS, new OrderBuilder(), status);
     }
 
+    @Override
     public List<Order> findByUserIdAllOrders(int userId) throws DaoException {
         return executeQuery(FIND_ORDERS_BY_USER_ID, new OrderBuilder(), userId);
     }
 
+    @Override
     public Optional<Order> findOrderById(int id) throws DaoException {
         return executeForSingleResult(FIND_ORDERS_BY_ID, new OrderBuilder(), id);
     }
@@ -71,6 +74,7 @@ public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao
         executeUpdate(UPDATE_ORDER_BY_ID, status, id);
     }
 
+    @Override
     public List<Order> findPage(int number, int pageSize) throws DaoException {
         List<Order> all = findAllNewOrder();
         return all.stream()
@@ -79,6 +83,7 @@ public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao
                 .collect(Collectors.toList());
     }
 
+    @Override
     public long size() throws DaoException {
         List<Order> all = findAllNewOrder();
         return all.size();
