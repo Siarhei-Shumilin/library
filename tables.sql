@@ -28,6 +28,6 @@ CREATE TABLE orders (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
 
-insert into users(name,password,role) values ("admin","b0baee9d279d34fa1dfd71aadb908c3f","admin");
-insert into users(name,password,role) values ("reader","827ccb0eea8a706c4c34a16891f84e7b","reader");
-insert into users(name,password,role) values ("librarian","3d2172418ce305c7d16d4b05597c6a59","librarian");
+insert into users(name,password,role) values ("admin",md5("11111"),"admin");
+insert into users(name,password,role) values ("reader",md5("12345"),"reader");
+insert into users(name,password,role) values ("librarian",md5("22222"),"librarian");

@@ -22,9 +22,10 @@ public class AddBookCommand extends AbstractCommand {
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         String title = request.getParameter("title");
         Optional<Book> bookOptional = bookService.findByTitle(title);
-        HttpSession session = request.getSession();
+        CommandResult commandResult;
         if (bookOptional.isPresent()) {
-            session.setAttribute("error", true);
+            request.setAttribute("error", true);
+            commandResult = new CommandResult(Constants.MAIN_COMMAND, false);
         } else {
             String author = request.getParameter("author");
             String genre = request.getParameter("genre");
@@ -39,13 +40,13 @@ public class AddBookCommand extends AbstractCommand {
                 int numberOfInstances = Integer.parseInt(number);
                 Book book = new Book(title, author, genre, description, numberOfInstances, numberOfInstances);
                 bookService.save(book);
-                session.removeAttribute("error");
-                session.removeAttribute("invalid");
+                commandResult = new CommandResult(Constants.MAIN_COMMAND, true);
             } else {
-                session.setAttribute("invalid", true);
+                request.setAttribute("invalid", true);
+                commandResult = new CommandResult(Constants.MAIN_COMMAND, false);
             }
         }
-        return new CommandResult(Constants.MAIN_COMMAND, true);
+        return commandResult;
     }
 
 }
