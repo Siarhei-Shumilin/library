@@ -6,8 +6,10 @@ import by.javatr.library.entity.Book;
 import by.javatr.library.exception.DaoException;
 import by.javatr.library.exception.ServiceException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class BookService {
 
@@ -108,5 +110,19 @@ public class BookService {
             throw new ServiceException(e.getMessage(), e);
         }
         return size;
+    }
+
+    public Set<String> getGenres() throws ServiceException {
+        BookDaoImpl bookDao = daoFactory.createBookDao();
+        Set<String> listGenres = new HashSet<>();
+        try {
+            List<Book> allBooks = bookDao.findAll();
+            for (Book book : allBooks) {
+                listGenres.add(book.getGenre());
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return listGenres;
     }
 }

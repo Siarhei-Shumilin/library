@@ -8,6 +8,7 @@ import by.javatr.library.exception.ServiceException;
 import by.javatr.library.service.BookService;
 import by.javatr.library.service.OrderService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -41,11 +42,8 @@ public abstract class AbstractCommand implements Command {
         List<Book> books = bookService.findAll();
         List<Book> allBooks = bookService.findPage(number, PAGE_SIZE);
         if (Role.READER.equals(user.getRole())) {
-            Set<String> genre = new HashSet<>();
-            for (Book book : books) {
-                genre.add(book.getGenre());
-            }
-            request.setAttribute("genre", genre);
+            Set<String> setGenres = bookService.getGenres();
+            request.setAttribute("genre", setGenres);
         }
         request.setAttribute("books", allBooks);
         int booksListSize = books.size();

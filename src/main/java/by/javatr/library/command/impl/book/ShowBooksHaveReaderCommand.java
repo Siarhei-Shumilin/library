@@ -27,7 +27,7 @@ public class ShowBooksHaveReaderCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         List<Order> ordersActive = orderService.findOrdersByStatus(OrderStatus.ACTIVE);
-        if (ordersActive.size() == 0) {
+        if (ordersActive.isEmpty()) {
             request.setAttribute("booksEmpty", true);
         } else {
             request.setAttribute("orders", ordersActive);

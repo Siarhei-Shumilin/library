@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao<Order, String> {
+public class OrderDaoImpl extends AbstractDao<Order, String> implements OrderDao<Order, String>  {
 
     private final static String ADD_ORDER = "insert into orders(user_id,book_id, status, date) values (?,?,?,?)";
     private final static String FIND_All_ORDERS = "SELECT orders.id, users.name, books.title, orders.status, orders.date, orders.book_id FROM orders INNER JOIN users ON orders.user_id=users.id INNER JOIN books on orders.book_id = books.id";

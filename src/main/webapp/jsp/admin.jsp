@@ -23,26 +23,31 @@
     <br/>
     <div class="main">
         <div class="addBook">
-        <p><fmt:message key="Main.addBook"/></p>
-        <form method="POST" action="/">
-            <input type="hidden" name="command" value="addBook"/>
-            <div class="col-65">
-                <input name="title" type="text" placeholder="<fmt:message key="Main.title"/>" pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
-            </div>
-            <div class="col-65">
-                <input name="author" type="text" placeholder="<fmt:message key="Main.author"/>" pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
-            </div>
-            <div class="col-65">
-                <input name="genre" type="text" placeholder="<fmt:message key="Main.genre"/>" pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
-            </div>
-            <div class="col-65">
-                <input name="numberOfInstances" type="text" placeholder="<fmt:message key="Main.numberOfInstances"/>" pattern="[0-9]{1,}" required/>
-            </div>
-            <div class="col-75">
-                <textarea name="description" placeholder="<fmt:message key="Main.description"/>"></textarea>
-            </div>
-            <input type="submit" value="<fmt:message key="Main.add"/>" class="main-submit"/>
-        </form>
+            <p><fmt:message key="Main.addBook"/></p>
+            <form method="POST" action="/">
+                <input type="hidden" name="command" value="addBook"/>
+                <div class="col-65">
+                    <input name="title" type="text" placeholder="<fmt:message key="Main.title"/>"
+                           pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
+                </div>
+                <div class="col-65">
+                    <input name="author" type="text" placeholder="<fmt:message key="Main.author"/>"
+                           pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
+                </div>
+                <div class="col-65">
+                    <input name="genre" type="text" placeholder="<fmt:message key="Main.genre"/>"
+                           pattern="[A-Za-zА-Яа-яЁё0-9\s.,!?;:]{1,30}" required/>
+                </div>
+                <div class="col-65">
+                    <input name="numberOfInstances" type="text"
+                           placeholder="<fmt:message key="Main.numberOfInstances"/>" pattern="[0-9]{1,}" required/>
+                </div>
+                <div class="col-75">
+                    <input name="description" type="text" placeholder="<fmt:message key="Main.description"/>"
+                           pattern="[A-Za-zА-Яа-яЁё0-9_\s.,!?;:]{1,500}" required/>
+                </div>
+                <input type="submit" value="<fmt:message key="Main.add"/>" class="main-submit"/>
+            </form>
         </div>
 
         <table>
@@ -63,7 +68,9 @@
                     <td>
                         <div>
                             <a href="/?command=to_edit&id=${book.id}"><fmt:message key="Main.edit"/></a><br/>
-                            <a href="/?command=delete&id=${book.id}" onclick="return confirm('<fmt:message key="Main.confirm"/>')"><fmt:message key="Main.delete"/></a>
+                            <a href="/?command=delete&id=${book.id}"
+                               onclick="return confirm('<fmt:message key="Main.confirm"/>')"><fmt:message
+                                    key="Main.delete"/></a>
                         </div>
                     </td>
                 </tr>

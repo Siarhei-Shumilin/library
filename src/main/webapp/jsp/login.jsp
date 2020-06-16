@@ -18,8 +18,8 @@
 <jsp:include page="/jsp/header/header_login.jsp"/>
 <div class="login">
     <h2><fmt:message key="Login.title"/></h2>
-    <form method="POST" action="/">
-        <input type="hidden" name="command" value="login"/>
+    <form method="POST" action="${pageContext.request.contextPath}/?command=login">
+<%--        <input type="hidden" name="command" value="login"/>--%>
         <input type="text" name="login" placeholder="<fmt:message key="Login.login"/>"/>
         <input type="password" name="password" placeholder="<fmt:message key="Login.password"/>">
 

@@ -13,7 +13,7 @@
     <%@include file="/jsp/css/header.css" %>
 </style>
 <body>
-<jsp:include page="/jsp/header/header_librarian.jsp"/>
+<jsp:include page="/jsp/header/header_book.jsp"/>
 <br/><br/><br/>
 <div class="order">
 <c:choose>

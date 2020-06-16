@@ -1,13 +1,11 @@
 body {
-    /*background-color: silver;*/
-    background-image: url("https://cs7.pikabu.ru/post_img/big/2017/12/12/4/1513052705177170307.jpg");
+    background-color: silver;
     background-attachment: fixed;
     margin: 0;
 }
 
 .main {
     position: absolute;
-    /*left: 10%;*/
     left: 20%;
     width: 75%;
 

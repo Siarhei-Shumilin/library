@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class NullCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request)  {
+
         return new CommandResult(Constants.LOGIN, false);
     }
 }

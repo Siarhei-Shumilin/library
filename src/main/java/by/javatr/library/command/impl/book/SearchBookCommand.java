@@ -32,12 +32,8 @@ public class SearchBookCommand extends AbstractCommand {
             User user = (User) session.getAttribute("user");
             Role role = user.getRole();
             if (Role.READER.equals(role)) {
-                List<Book> bookList = bookService.findAll();
-                Set<String> listGenre = new HashSet<>();
-                for (Book book : bookList) {
-                    listGenre.add(book.getGenre());
-                }
-                request.setAttribute("genre", listGenre);
+                Set<String> setGenres = bookService.getGenres();
+                request.setAttribute("genre", setGenres);
                 page = Constants.READER;
             } else if (Role.ADMIN.equals(role)) {
                 page = Constants.MAIN;
